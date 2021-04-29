@@ -1,5 +1,5 @@
 module.exports = {
-  webpack: (config) => {
+  webpack5: (config) => {
     config.node = {
       fs: 'empty'
     }
