@@ -1,31 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = [
-    {
-        id: "",
-        title: "",
-        description: "",
-        image: "",
-        price: 0
-      }
-]
 
 export const shoeSlice = createSlice({
     name: 'shoes',
-    initialState,
+    initialState: {
+            id: "",
+            title: "",
+            description: "",
+            image: "",
+            price: 0,
+            quantity: 0,
+            selected: false
+    },
     reducers: {
-        addShoe(state, action) {
-            state.push(action.payload);
+        addQuantity(state, action) {           
+            console.log(action.payload)
+               state.quantity += action.payload
+
         },
-        decrement(state) {
-            state.value--
-        },
-        incrementByAmount(state, action) {
-            state.value += action.payload
+        addToCart(state, action) {
+
         }
     }
 })
 
-export const { addShoe, decrement, incrementByAmount } = shoeSlice.actions;
+
+export const { addToCart, removeFromCart, addQuantity, subtractQuantity, emptyCart} = shoeSlice.actions;
 
 export default shoeSlice.reducer;

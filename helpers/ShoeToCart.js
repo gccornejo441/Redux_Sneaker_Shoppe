@@ -1,41 +1,32 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { addShoe, decrement, incrementByAmount } from './shoeSlice';
-import data from '../Briefcase/sneaks.json';
+import { addQuantity } from './shoeSlice';
 import { store } from '../lib/store';
+import { useState } from 'react';
 
-export const ShoeToCart = ({ product }) => {
+export const ShoeToCart = ({...props}) => {
     const shoes = useSelector(state => state.shoes);
 
-    const products =  data.map(prod => {
-        const { id, title, image, description, price } = prod;
-        return { id, title, image, description, price };
-    })
+    const [ setShoe ] = useState('2');
 
-    console.log(products)
-    console.log(product)
+    console.log(shoes.quantity)
 
     const dispatch = useDispatch();
 
-    const addToCart = () => {
-        if (product.id == products[0]) {
-            dispatch(addShoe({
-                id: product.id,
-                title: product.title,
-                description: product.description,
-                image: product.image,
-                price: product.price
-            }))
-        } else {
-            console.log("didn't work");
-        }
-    }
-
-
     return (
         <div>
-            <button type="button" class="bg-indigo-300 border-2 border-indigo-600 rounded-md text-3xl px-5 py-3 my-3 text-white" onClick={addToCart()}>
+            <button
+            type="button" 
+            class="bg-indigo-300 
+            border-2 
+            border-indigo-600 
+            rounded-md text-3xl 
+            px-5 py-3 my-3 
+            text-white" 
+            onClick={() => dispatch(addQuantity(Number(setShoe)))}
+            >
                 Buy
             </button>
+            <div>{shoes.quantity}</div>
         </div>
     )
 }

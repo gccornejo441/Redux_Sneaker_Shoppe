@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import products from '../Briefcase/sneaks.json';
-import { ShoeToCart } from '../helpers/ShoeToCart';
 import ShoppingCart from '../components/ShoppingCart';
+import { ShoeToCart } from '../helpers/ShoeToCart';
 
 export const Home = () => {
   
@@ -20,7 +20,7 @@ export const Home = () => {
               <p class="text-center text-2xl text-indigo-800 font-bold p-5">{product.description}</p>
               <p class="text-center text-2xl text-indigo-800 font-bold p-5">${product.price}</p>
               <div class="mx-auto">
-              <ShoeToCart product={product}/>
+             <ShoeToCart props={product} />
               </div>
               </a>
             </li>
