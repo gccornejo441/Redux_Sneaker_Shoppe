@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function ShoppingCart() {
-    const shoes = useSelector(state => state.shoes);
+    const shoes = useSelector(state => state.shop);
     
     return (
         <div class="border-2 border-indigo-500 absolute right-0">

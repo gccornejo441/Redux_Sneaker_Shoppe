@@ -1,14 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { addQuantity } from './shoeSlice';
 import { store } from '../lib/store';
 import { useState } from 'react';
 
-export const ShoeToCart = ({...props}) => {
+export const ShoeToCart = ({product}) => {
     const shoes = useSelector(state => state.shoes);
 
     const [ setShoe ] = useState('2');
-
-    console.log(shoes.quantity)
 
     const dispatch = useDispatch();
 
@@ -26,7 +23,7 @@ export const ShoeToCart = ({...props}) => {
             >
                 Buy
             </button>
-            <div>{shoes.quantity}</div>
+            <div></div>
         </div>
     )
 }
