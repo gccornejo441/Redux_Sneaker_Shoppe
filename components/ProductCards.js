@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Image from 'next/image';
-import { ShoeToCart } from '../helpers/ShoeToCart';
+import ShoeToCart from '../helpers/ShoeToCart';
 
 const ProductCard = ({ shoes }) => {
     return (

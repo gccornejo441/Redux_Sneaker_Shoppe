@@ -38,18 +38,41 @@ export const shoeSlice = createSlice({
     name: 'shoes',
     initialState,
     reducers: {
-        addToCart(state, action) {
+        addToCart: {
+            reducer(state, action) {
             const item = state.shoes.find(shoe => shoe.id === action.payload.id)
             const inCart = state.cart.find(item => item.id === action.payload.id ? true : false);
             return {
                 ...state, cart: inCart ? state.cart.map(item => item.id === action.payload.id ? {...item, quantity: item.quantity + 1 } : item) : [...state.cart, {...item, quantity: 1}]
             }
+          },
+          prepare(itemID) {
+            return {
+              payload: {
+                id: itemID,
+              }
+            }
+          }
+        },
+        removeFromCart(state, action) {
+            return {
+                ...state, cart: state.cart.filter(item => item.id !== action.payload.id),
+            };
+        },
+        adjustQty(state, action) {
+            return {
+                ...state, cart: state.cart.map(item => item.id === action.payload.id ? {...item, quantity: action.payload.quantity} : item)
+            }
+        },
+        loadCurrentItem(state, action) {
+            return {
+                ...state, currentItem: action.payload
+            }
         }
     }
 })
 
-console.log(shoeSlice.actions);
 
-export const { addToCart } = shoeSlice.actions;
+export const { addToCart, removeFromCart, adjustQty, loadCurrentItem } = shoeSlice.actions;
 
 export default shoeSlice.reducer;

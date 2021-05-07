@@ -1,13 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { store } from '../lib/store';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { connect } from 'react-redux';
+import { addToCart }  from './shoeSlice';
 
-export const ShoeToCart = ({product}) => {
-    const shoes = useSelector(state => state.shoes);
-
-    const [ setShoe ] = useState('2');
-
-    const dispatch = useDispatch();
+const ShoeToCart = ({ product, addToCart }) => {
 
     return (
         <div>
@@ -19,11 +15,19 @@ export const ShoeToCart = ({product}) => {
             rounded-md text-3xl 
             px-5 py-3 my-3 
             text-white" 
-            onClick={() => dispatch(addQuantity(Number(setShoe)))}
+            onClick={() => addToCart(product.id)}
             >
                 Buy
             </button>
-            <div></div>
         </div>
     )
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addToCart: (id) => dispatch(addToCart(id)),
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ShoeToCart);
+
