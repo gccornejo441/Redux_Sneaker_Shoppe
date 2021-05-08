@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { initiateCheckout } from '../pages/api/create-checkout-session';
+import { initiateCheckout } from '../helpers/checkout';
 
 function ShoppingCart({ cart }) {
   const [cartCount, setCartCount] = useState(0);
