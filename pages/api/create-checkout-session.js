@@ -1,10 +1,16 @@
-const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_API_KEY);
+import { loadStripe } from '@stripe/stripe-js';
 
-const session = await stripe.checkout.sessions.create({
-  successUrl: `${window.location.origin}?session_id={CHECKOUT_SESSION_ID}`,
-  cancelUrl: window.location.origin,
-  payment_method_types: ["card"],
-  line_items: [{ price: "price_1Ios3wG3MtoJKZ2HuNHjxZRD", quantity: 1 }],
-  mode: "payment",
-});
-res.json({ id: session.id });
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
+
+export async function initiateCheckout({ lineItems } = {}) {
+
+  const stripe = await stripePromise;
+
+  await stripe.redirectToCheckout({
+    mode: 'payment',
+    lineItems,
+    successUrl: `${window.location.origin}?session_id={CHECKOUT_SESSION_ID}`,
+    cancelUrl: window.location.origin,
+  });
+}
