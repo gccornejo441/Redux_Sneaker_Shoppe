@@ -1,7 +1,7 @@
 {
   "name": "create-next-app-default",
   "version": "0.1.0",
-  "description": "",
+  "description": "sneaker shop",
   "main": "index.js",
   "engines": {
     "node": "14.x"
@@ -9,10 +9,10 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p $PORT"
   },
   "keywords": [],
-  "author": "",
+  "author": "gabriel cornejo",
   "license": "ISC",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.1",
