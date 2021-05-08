@@ -7,7 +7,7 @@ const ShoeToCart = ({ product, addToCart }) => {
 
 
     return (
-        <div>
+        <div class="flex justify-center">
             <button
             type="button" 
             class="bg-indigo-300 

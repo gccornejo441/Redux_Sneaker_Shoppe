@@ -15,13 +15,15 @@ function ShoppingCart({ cart }) {
     console.log("cart: ", cart);
 
     return (
-        <div class="border-2 border-indigo-500 absolute right-0">
-            <div class="text-indigo-500 text-3xl p-5">Shopping Cart</div>
+        <div class="border-2 border-indigo-500 rounded-md mx-5">
+            <div class="p-5 text-right">
+                <span class="text-indigo-500 text-lg md:text-3xl font-bold">Shopping Cart</span>
             <ul>
                 <li>
-                    {cartCount}
+                 <span class="text-indigo-500 text-lg md:text-3xl font-light">Items: {cartCount}</span>
                 </li>
             </ul>
+            </div>
         </div>
     )
 }
