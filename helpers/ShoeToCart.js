@@ -5,6 +5,7 @@ import { addToCart }  from './shoeSlice';
 
 const ShoeToCart = ({ product, addToCart }) => {
 
+
     return (
         <div>
             <button

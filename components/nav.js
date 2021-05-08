@@ -1,18 +1,18 @@
 import Link from 'next/link';
 
 const links = [
-  { href: '//github.com/create-next-app/create-next-app', label: 'Github' }
+  { href: '//github.com/gccornejo441', label: 'Github' }
 ].map(link => {
   link.key = `nav-link-${link.href}-${link.label}`
   return link
 });
 
 const Nav = () => (
-  <nav>
+  <nav class="bg-indigo-500 py-5">
     <ul>
       <li>
         <Link href="/">
-          <a>Home</a>
+          <a class="text-white">Home</a>
         </Link>
       </li>
       <ul>
@@ -20,7 +20,7 @@ const Nav = () => (
           ({ key, href, label }) => (
             <li key={key}>
               <Link href={href}>
-                <a>{label}</a>
+                <a class="text-white mr-2" >{label}</a>
               </Link>
             </li>
           )
