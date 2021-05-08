@@ -1,10 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { connect } from 'react-redux';
 import { addToCart }  from './shoeSlice';
 
 const ShoeToCart = ({ product, addToCart }) => {
-
 
     return (
         <div class="flex justify-center">

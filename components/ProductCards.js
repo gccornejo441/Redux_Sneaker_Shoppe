@@ -6,7 +6,7 @@ const ProductCard = ({ shoes }) => {
     return (
         <ul class="flex lg:justify-around flex-col lg:flex-row">
         {shoes.map(product => (
-            <li key={product.id} class="m-5">
+            <li key={product.id} class="m-5 xl:w-1/2">
               <a class="flex flex-col">
               <p class="text-center text-xl text-indigo-800 font-bold p-5">{product.title}</p>
               <Image src={product.image} alt={product.title} height="500" width="400"/>

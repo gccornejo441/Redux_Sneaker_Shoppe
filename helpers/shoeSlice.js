@@ -1,35 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import shoes from '../Briefcase/sneaks.json';
 
 const initialState = {
-    shoes: [
-        {
-            "id": "price_1ImtIgG3MtoJKZ2HbhGjflEa",
-            "title": "Zoomx Invincible Run Flyknit",
-            "description": "Best shoes on the market!",
-            "image": "/zoomx-invincible-run-flyknit.jpg",
-            "price": 120.00,
-            "quantity": 1,
-            "selected": false
-          },
-          {
-            "id": "price_abcd0002",
-            "title": "Killshot 2 Leather Mens Shoe",
-            "description": "Best and last sneaks you'll ever buy!",
-            "image": "/killshot-2-leather-mens-shoe.jpg",
-            "price": 120.00,
-            "quantity": 1,
-            "selected": false
-          },
-          {
-            "id": "price_abcd0003",
-            "title": "Court Legacy Mens Shoe",
-            "description": "These legacy...!",
-            "image": "/court-legacy-mens-shoe.jpg",
-            "price": 90.00,
-            "quantity": 1,
-            "selected": false
-          }
-    ],
+    shoes,
     cart: [], 
     currentItem: null,
 }
