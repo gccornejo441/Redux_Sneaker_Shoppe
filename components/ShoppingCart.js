@@ -2,10 +2,9 @@ import { connect } from "react-redux";
 import { useState, useEffect } from 'react';
 import Modal from '../components/Modal';
 
-
 function ShoppingCart({ cart }) {
   const [cartCount, setCartCount] = useState(0);
-  const [itemId, setItemId] = useState('')
+  const [itemId, setItemId] = useState('');
  
   // MODAL PROPS
   const [show, setShow] = useState(false);
@@ -19,7 +18,7 @@ function ShoppingCart({ cart }) {
       count += item.quantity;
     });
     setCartCount(count);
-  });
+  }, [cart, cartCount]);
 
   useEffect(() => {
     let itemTitle = '';
@@ -27,7 +26,7 @@ function ShoppingCart({ cart }) {
         itemTitle = item.title;
     })
     setItemId(itemTitle);
-})
+}, [])
 
   return (
     <div class="border-b border-t border-indigo-500 mx-5">

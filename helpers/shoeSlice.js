@@ -13,7 +13,7 @@ export const shoeSlice = createSlice({
     reducers: {
         addToCart: {
             reducer(state, action) {
-            const item = state.shoes.find(shoe => shoe.id === action.payload.id)
+            const item = state.shoes.find(shoe => shoe.id === action.payload.id);
             const inCart = state.cart.find(item => item.id === action.payload.id ? true : false);
             return {
                 ...state, cart: inCart ? state.cart.map(item => item.id === action.payload.id ? {...item, quantity: item.quantity + 1 } : item) : [...state.cart, {...item, quantity: 1}]
@@ -27,10 +27,19 @@ export const shoeSlice = createSlice({
             }
           }
         },
-        removeFromCart(state, action) {
+        removeFromCart: {
+            reducer(state, action) {
             return {
                 ...state, cart: state.cart.filter(item => item.id !== action.payload.id),
-            };
+            }
+        },
+        prepare(itemID) {
+            return {
+              payload: {
+                id: itemID,
+              }
+            }
+          }
         },
         adjustQty(state, action) {
             return {
