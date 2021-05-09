@@ -8,9 +8,9 @@ const ProductCard = ({ shoes }) => {
         {shoes.map(product => (
             <li key={product.id} class="m-5 xl:w-1/2">
               <a class="flex flex-col">
-              <p class="text-center text-xl text-indigo-800 font-bold p-5">{product.title}</p>
+              <p class="text-center text-2xl text-indigo-800 font-bold p-5">{product.title}</p>
               <Image src={product.image} alt={product.title} height="500" width="400"/>
-              <p class="text-center text-2xl text-indigo-800 font-bold p-5">{product.description}</p>
+              <p class="text-center text-base text-indigo-800 font-bold p-5">{product.description}</p>
               <p class="text-center text-2xl text-indigo-800 font-bold p-5">${product.price}</p>
               <div class="mx-auto">
               </div>

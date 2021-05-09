@@ -1,6 +1,6 @@
 import ShoppingCart from '../components/ShoppingCart';
-import { ShoeToCart } from '../helpers/ShoeToCart';
 import  ProductCard from '../components/ProductCards';
+import Footer from '../components/footer';
 import Nav from '../components/nav';
 
 export const Home = () => {
@@ -12,6 +12,7 @@ export const Home = () => {
       <p class="text-center text-2xl text-indigo-800 font-bold p-5">We <span class="uppercase text-red-600">dont</span> claim to sell these sneakers.</p>
       <ShoppingCart/>
       <ProductCard/>
+      <Footer/>
   </div>
   );
 }
