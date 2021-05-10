@@ -2,57 +2,38 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ShoppingCartIcon } from "@heroicons/react/outline";
+
+import { initiateCheckout } from '../helpers/checkout';
 import { connect } from "react-redux";
 import Image from "next/image";
 import RemoveFromCart from "../helpers/RemoveFromCart";
 
-import { loadStripe } from "@stripe/stripe-js";
+const ProductDisplay = (props) => {
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
+  const lineItems = props.data.cart.map(item => {
+    return {
+        price: item.id,
+            quantity: item.quantity
+      }
+  })
 
-const ProductDisplay = ({ handleClick }) => (
+  return (
   <section>
     <button
       type="button"
       role="link"
       className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-500 text-base font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
-      onClick={handleClick}
+      onClick={() => initiateCheckout({lineItems})}
     >
       Checkout
     </button>
   </section>
-);
+  )
+};
 
 function Modal(props) {
   const [open, setOpen] = useState(true);
   const cancelButtonRef = useRef();
-
-  // EVENT HANDLER
-  const handleClick = async (event) => {
-    const stripe = await stripePromise;
-
-    const response = await fetch("/create-checkout-session", {
-      method: "POST",
-    });
-
-    const session = await response.json();
-
-    const result = await stripe.redirectToCheckout({
-        sessionId: session.id,
-        mode: 'payment',
-        lineItems: [
-          {
-            price_data: price_1Ios3wG3MtoJKZ2HuNHjxZRD,
-            quantity: 1,
-          },
-        ],
-        successUrl: `${window.location.origin}?session_id={CHECKOUT_SESSION_ID}`,
-        cancelUrl: window.location.origin,
-      });
-      console.log(result);
-  };
 
   const cartItems = props.cart.map((item) => {
     return (
@@ -132,7 +113,7 @@ function Modal(props) {
                 </div>
               </div>
               <div className="bg-indigo-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <ProductDisplay handleClick={handleClick} />
+                <ProductDisplay data={props}/>
                 <button
                   type="button"
                   className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"

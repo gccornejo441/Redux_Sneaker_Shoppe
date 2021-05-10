@@ -4,6 +4,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
 
 export async function initiateCheckout({ lineItems } = {}) {
+  console.log("lineItem: ", lineItems)
 
   const stripe = await stripePromise;
 
