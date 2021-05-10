@@ -1,8 +1,7 @@
 import { removeFromCart } from './shoeSlice';
-import { useDispatch, useSelector, connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 const RemoveFromCart = ({ data, removeFromCart }) => {
-    console.log("data: ", data)
     return (
     <button type="button" onClick={() => removeFromCart(data)}>
         Clear Cart
@@ -17,5 +16,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(null, mapDispatchToProps)(RemoveFromCart);
-
-// export default RemoveFromCart;

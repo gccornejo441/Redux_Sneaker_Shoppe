@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import shoes from '../Briefcase/sneaks.json';
+import shoes from '../sneakerData/sneaks.json';
 
 const initialState = {
     shoes,

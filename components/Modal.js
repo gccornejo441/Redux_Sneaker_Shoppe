@@ -1,75 +1,74 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useRef, useState } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { ShoppingCartIcon } from '@heroicons/react/outline';
+import { Fragment, useRef, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { ShoppingCartIcon } from "@heroicons/react/outline";
 import { connect } from "react-redux";
-import Image from 'next/image';
-import RemoveFromCart from '../helpers/RemoveFromCart';
+import Image from "next/image";
+import RemoveFromCart from "../helpers/RemoveFromCart";
 
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+);
 
 const ProductDisplay = ({ handleClick }) => (
   <section>
-      <button
-                  type="button"
-                  role="link"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-500 text-base font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={handleClick}>
-                  Checkout 
-                </button>
+    <button
+      type="button"
+      role="link"
+      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-500 text-base font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
+      onClick={handleClick}
+    >
+      Checkout
+    </button>
   </section>
-)
+);
 
 function Modal(props) {
   const [open, setOpen] = useState(true);
-
   const cancelButtonRef = useRef();
-// EVENT HANDLER
+
+  // EVENT HANDLER
   const handleClick = async (event) => {
     const stripe = await stripePromise;
 
     const response = await fetch("/create-checkout-session", {
-        method: "POST",
+      method: "POST",
     });
 
     const session = await response.json();
 
     const result = await stripe.redirectToCheckout({
-        session: session.id,
-    })
-}
+        sessionId: session.id,
+        mode: 'payment',
+        lineItems: [
+          {
+            price_data: price_1Ios3wG3MtoJKZ2HuNHjxZRD,
+            quantity: 1,
+          },
+        ],
+        successUrl: `${window.location.origin}?session_id={CHECKOUT_SESSION_ID}`,
+        cancelUrl: window.location.origin,
+      });
+      console.log(result);
+  };
 
   const cartItems = props.cart.map((item) => {
-      return (
-          <div>
-          <ul>
-              <li class="flex flex-col">
-                  <h2 class="font-bold text-indigo-500">{item.title}</h2>
-                <Image src={item.image} alt={item.title} height={200} width={100} />
-                  <p class="text-green-600 text-2xl">${item.price}</p>
-                  <p class="text-indigo-500">Qty: {item.quantity}</p>
-              </li>
-          </ul>
-          {/* <button
-                  type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-500 text-base font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => initiateCheckout({
-                      lineItems: [{
-                          price: item.id,
-                          quantity: item.quantity
-                      }]
-                  })}
-                >
-                  Checkout 
-                </button> */}
-                        <RemoveFromCart data={item.id}/>
-          </div>
-      )
-  })
-
-
+    return (
+      <div>
+        <ul>
+          <li class="flex flex-col">
+            <h2 class="font-bold text-indigo-500">{item.title}</h2>
+            <Image src={item.image} alt={item.title} height={200} width={100} />
+            <p class="text-green-600 text-2xl">${item.price}</p>
+            <p class="text-indigo-500">Qty: {item.quantity}</p>
+          </li>
+        </ul>
+        <RemoveFromCart data={item.id} />
+      </div>
+    );
+  });
 
   return (
     <Transition.Root show={props.data} as={Fragment}>
@@ -95,7 +94,10 @@ function Modal(props) {
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
-          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+          <span
+            className="hidden sm:inline-block sm:align-middle sm:h-screen"
+            aria-hidden="true"
+          >
             &#8203;
           </span>
           <Transition.Child
@@ -111,22 +113,26 @@ function Modal(props) {
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
                   <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100 sm:mx-0 sm:h-10 sm:w-10">
-                    <ShoppingCartIcon className="h-6 w-6 text-indigo-600" aria-hidden="true" />
+                    <ShoppingCartIcon
+                      className="h-6 w-6 text-indigo-600"
+                      aria-hidden="true"
+                    />
                   </div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-indigo-900">
+                    <Dialog.Title
+                      as="h3"
+                      className="text-lg leading-6 font-medium text-indigo-900"
+                    >
                       Shopping Cart
                     </Dialog.Title>
                     <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        {cartItems}
-                      </p>
+                      <p className="text-sm text-gray-500">{cartItems}</p>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="bg-indigo-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                  <ProductDisplay handleClick={handleClick} />
+                <ProductDisplay handleClick={handleClick} />
                 <button
                   type="button"
                   className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
@@ -141,13 +147,13 @@ function Modal(props) {
         </div>
       </Dialog>
     </Transition.Root>
-  )
+  );
 }
 
 const mapStateToProps = (state) => {
-    return {
-      cart: state.shop.cart,
-    };
+  return {
+    cart: state.shop.cart,
   };
-  
-  export default connect(mapStateToProps)(Modal);
+};
+
+export default connect(mapStateToProps)(Modal);
