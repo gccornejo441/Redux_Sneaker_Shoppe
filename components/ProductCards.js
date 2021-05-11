@@ -1,6 +1,9 @@
 import { connect } from "react-redux";
 import Image from 'next/image';
 import ShoeToCart from '../helpers/ShoeToCart';
+import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const ProductCard = ({ shoes }) => {
     return (
